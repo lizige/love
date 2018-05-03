@@ -1,57 +1,70 @@
 //index.js
 //获取应用实例
-var Garden =require("../../utils/garden_dev.js");
+var Garden = require("../../utils/garden_dev.js");
 var utils = require("../../utils/util.js");
-
+let gardenCavas;
 const app = getApp()
 
 Page({
   data: {
     code_comments: '',
-    code : ''
+    code: ''
   },
-  onShow:function() {
-     let that = this;
-     
-     this.showCode();
-     let gardenCavas = wx.createCanvasContext("garden", this);
-     let garden = new Garden(gardenCavas, 375, 325);
-
-     setInterval(function () {
-       garden.render();
-     }, Garden.options.growSpeed);
-
-     setTimeout(function () {
-       that.startHeartAnimation(garden);
-     }, 1000);
-
-  
-
-  },
-  showCode:function(){
+  onShow: function () {
     let that = this;
-    let code_comments="/** \n"+
-                     "  * 老婆，结婚两周年纪念日快乐。 \n" +
-                     "  * 谢谢您两年来的付出。\n" +
-                     " */ \n";
-    let code = "老公 i = new 老公('李子'); \n"+
-               "老婆 u = new 老婆('贺婷');\n" +
-               " i.love(u);";
-    let code_comments_promise = new Promise(function(resolve, reject){
-      that.showCodeSpeed("code_comments", code_comments,function(){resolve()});
+    gardenCavas = wx.createCanvasContext("garden", this);
+    this.showCode(function () {
+
+      let garden = new Garden(gardenCavas, 375, 325);
+
+      setInterval(function () {
+        garden.render();
+      }, Garden.options.growSpeed);
+
+      setTimeout(function () {
+        that.startHeartAnimation(garden);
+      }, 1000);
+
+
     });
 
-    code_comments_promise.then(() => that.showCodeSpeed("code", code));
+
+
+
+
+
+
+
   },
-  showCodeSpeed:function(dataPro, codeText,successCallback) {
+  showCode: function (successFun) {
+    let that = this;
+    let code_comments = "/** \n" +
+      "  * 老婆，结婚两周年纪念日快乐。 \n" +
+      "  * 谢谢您两年来的付出。\n" +
+      " */ \n";
+    let code = "老公 i = new 老公('李子'); \n" +
+      "老婆 u = new 老婆('贺婷');\n" +
+      " i.love(u);";
+    let code_comments_promise = new Promise(function (resolve, reject) {
+      that.showCodeSpeed("code_comments", code_comments, function () { resolve() });
+    });
+
+    code_comments_promise.then(() => {
+      that.showCodeSpeed("code", code, function () {
+        if (successFun) successFun();
+      })
+    }
+    );
+  },
+  showCodeSpeed: function (dataPro, codeText, successCallback) {
     let progress = 0;
     let that = this;
     let timer = setInterval(function () {
       var current = codeText.substr(progress, 1);
       progress++;
       let showText = "";
-      if (progress < codeText.length-1)
-        showText =  codeText.substring(0, progress) + (progress & 1 ? '_' : '');
+      if (progress < codeText.length - 1)
+        showText = codeText.substring(0, progress) + (progress & 1 ? '_' : '');
       else
         showText = codeText.substring(0, progress);
       that.data[dataPro] = showText;
@@ -61,9 +74,9 @@ Page({
         if (successCallback && typeof successCallback == 'function')
           successCallback();
       }
-    }, 200);
+    }, 100);
   },
-  startHeartAnimation:function (garden) {
+  startHeartAnimation: function (garden) {
     var interval = 50;
     var angle = 10;
     var heart = new Array();
@@ -89,6 +102,6 @@ Page({
       }
     }, interval);
   }
-  
-  
+
+
 })

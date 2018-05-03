@@ -47,7 +47,7 @@ function Petal(stretchA, stretchB, startAngle, angle, growFactor, bloom) {
   //this.tanAngleB = Garden.random(-Garden.degrad(Garden.options.tanAngle), Garden.degrad(Garden.options.tanAngle));
 }
 Petal.prototype = {
-  draw: function () {
+  draw: function (pp) {
     var ctx = this.bloom.garden.ctx;
     var v1, v2, v3, v4;
     v1 = new Vector(0, this.r).rotate(Garden.degrad(this.startAngle));
@@ -55,17 +55,19 @@ Petal.prototype = {
     v3 = v1.clone().mult(this.stretchA); //.rotate(this.tanAngleA);
     v4 = v2.clone().mult(this.stretchB); //.rotate(this.tanAngleB);
     ctx.setStrokeStyle(this.bloom.c);
-
+    ctx.setStrokeStyle('red');
     ctx.beginPath();
+    // ctx.moveTo(v1.x+pp.x, v1.y+pp.y);
+    // ctx.bezierCurveTo(v3.x+pp.x, v3.y+pp.y, v4.x+pp.x, v4.y+pp.y, v2.x+pp.x, v2.y+pp.y);
     ctx.moveTo(v1.x, v1.y);
     ctx.bezierCurveTo(v3.x, v3.y, v4.x, v4.y, v2.x, v2.y);
     ctx.stroke();
-    ctx.draw();
+ 
   },
-  render: function () {
+  render: function (pp) {
     if (this.r <= this.bloom.r) {
       this.r += this.growFactor; // / 10;
-      this.draw();
+      this.draw(pp);
     } else {
       this.isfinished = true;
     }
@@ -87,9 +89,10 @@ Bloom.prototype = {
     var p, isfinished = true;
     this.garden.ctx.save();
     this.garden.ctx.translate(this.p.x, this.p.y);
+    var pp = this.p;
     for (var i = 0; i < this.petals.length; i++) {
       p = this.petals[i];
-      p.render();
+      p.render(pp);
       isfinished *= p.isfinished;
     }
     this.garden.ctx.restore();
@@ -116,7 +119,9 @@ Garden.prototype = {
   render: function () {
     for (var i = 0; i < this.blooms.length; i++) {
       this.blooms[i].draw();
+      
     }
+    this.ctx.draw(true);
   },
   addBloom: function (b) {
     this.blooms.push(b);
