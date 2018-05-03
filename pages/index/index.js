@@ -1,5 +1,8 @@
 //index.js
 //获取应用实例
+var Garden =require("../../utils/garden_dev.js");
+var utils = require("../../utils/util.js");
+
 const app = getApp()
 
 Page({
@@ -8,7 +11,22 @@ Page({
     code : ''
   },
   onShow:function() {
+     let that = this;
+     
      this.showCode();
+     let gardenCavas = wx.createCanvasContext("garden", this);
+     let garden = new Garden(gardenCavas, 375, 325);
+
+     setInterval(function () {
+       garden.render();
+     }, Garden.options.growSpeed);
+
+     setTimeout(function () {
+       that.startHeartAnimation(garden);
+     }, 1000);
+
+  
+
   },
   showCode:function(){
     let that = this;
@@ -44,5 +62,33 @@ Page({
           successCallback();
       }
     }, 200);
+  },
+  startHeartAnimation:function (garden) {
+    var interval = 50;
+    var angle = 10;
+    var heart = new Array();
+    var animationTimer = setInterval(function () {
+      var bloom = utils.getHeartPoint(angle);
+      var draw = true;
+      for (var i = 0; i < heart.length; i++) {
+        var p = heart[i];
+        var distance = Math.sqrt(Math.pow(p[0] - bloom[0], 2) + Math.pow(p[1] - bloom[1], 2));
+        if (distance < Garden.options.bloomRadius.max * 1.3) {
+          draw = false;
+          break;
+        }
+      }
+      if (draw) {
+        heart.push(bloom);
+        garden.createRandomBloom(bloom[0], bloom[1]);
+      }
+      if (angle >= 30) {
+        clearInterval(animationTimer);
+      } else {
+        angle += 0.2;
+      }
+    }, interval);
   }
+  
+  
 })

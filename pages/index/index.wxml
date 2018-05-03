@@ -4,5 +4,7 @@
      <text class="comments">{{code_comments}}</text>
      <text class='coding'>{{code}}</text>
   </view>
-  <canvas canvas-id='garden'></canvas>
+  <view class="loveHeart">
+      <canvas canvas-id='garden' style='width:100%;border: solid 1px black;'></canvas>
+  </view>
 </view>

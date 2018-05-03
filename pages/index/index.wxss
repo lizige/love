@@ -9,3 +9,7 @@
 .comments {
   color: #2a36ff;
 }
+.loveHeart {
+  width: 100%;
+  height: 500px;
+}
