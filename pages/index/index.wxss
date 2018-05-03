@@ -1,0 +1,11 @@
+/**index.wxss**/
+.code {
+  color: #333;
+	font-family: "Consolas", "Monaco", "Bitstream Vera Sans Mono", "Courier New", "sans-serif";
+	font-size: 12px;
+  flex-direction: column;
+  width: 100%;
+}
+.comments {
+  color: #2a36ff;
+}

@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view class="container">
+  <view class='code'>
+     <text class="comments">{{code_comments}}</text>
+     <text class='coding'>{{code}}</text>
+  </view>
+  <canvas canvas-id='garden'></canvas>
+</view>
