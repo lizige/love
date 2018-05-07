@@ -19,25 +19,31 @@ Page({
     let that = this;
     gardenCavas = wx.createCanvasContext("garden", this);
     let promise = this.showCode();
-
+    let sysInfo = wx.getSystemInfoSync();
     promise.then(()=>{
-        let garden = new Garden(gardenCavas, 375, 325);
+      
 
-        setInterval(function () {
-          garden.render();
-        }, Garden.options.growSpeed);
+            let widowWith = sysInfo.windowWidth;
+            let garden = new Garden(gardenCavas, widowWith, 150);
+  
+            setInterval(function () {
+              garden.render();
+            }, Garden.options.growSpeed);
 
-       setTimeout(function () {
-        that.startHeartAnimation(garden);
-       }, 1000);
+            setTimeout(function () {
+              that.startHeartAnimation(garden);
+            }, 1000);
 
-       var animation = wx.createAnimation({
-         duration: 3000
-       });
-       animation.opacity(1);
-       animation.step();
+            var animation = wx.createAnimation({
+              duration: 3000
+            });
+            animation.opacity(1);
+            animation.step();
 
-       that.setData({animationData: animation.export() });
+            that.setData({ animationData: animation.export() });
+
+
+        
     });
 
     
@@ -64,8 +70,14 @@ Page({
     var interval = 50;
     var angle = 10;
     var heart = new Array();
+   
+    var xRatio = utils.xRatio(garden.width-20);
+    var yRatio = utils.yRatio(garden.height);
+
     var animationTimer = setInterval(function () {
-      var bloom = utils.getHeartPoint(angle);
+
+      var bloom = utils.getHeartPoint(garden.width / 2, 150, angle, xRatio, yRatio);
+     
       var draw = true;
       for (var i = 0; i < heart.length; i++) {
         var p = heart[i];

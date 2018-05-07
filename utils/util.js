@@ -14,11 +14,26 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-function getHeartPoint(angle) {
+
+
+function getHeartPoint(offsetX,offsetY,angle,xx,yy) {
   var t = angle / Math.PI;
-  var x = 11 * (16 * Math.pow(Math.sin(t), 3));
-  var y = -10 * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
-  return new Array(180 + x, 150 + y);
+  //var x = 9 * (16 * Math.pow(Math.sin(t), 3));
+  //var y = -10 * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+  //return new Array(180 + x, 150 + y);
+  var x = xx * (16 * Math.pow(Math.sin(t), 3));
+  var y = yy * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+  return new Array(offsetX + x, offsetY + y);
+}
+
+function xRatio(gardenWidth) {
+  var t = 24.8 / Math.PI;
+  return  gardenWidth/(2*16 * Math.pow(Math.sin(t), 3));
+}
+
+function yRatio(gardenHeight) {
+  var t = 10.8 / Math.PI;
+  return gardenHeight/(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
 }
 
 
@@ -80,5 +95,7 @@ module.exports = {
   formatTime: formatTime,
   getHeartPoint: getHeartPoint,
   createShowCode: createShowCode,
-  timeElapse: timeElapse
+  timeElapse: timeElapse,
+  xRatio: xRatio,
+  yRatio: yRatio
 }
