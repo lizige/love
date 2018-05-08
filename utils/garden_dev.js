@@ -1,3 +1,4 @@
+
 function Vector(x, y) {
   this.x = x;
   this.y = y;
@@ -62,7 +63,7 @@ Petal.prototype = {
     ctx.moveTo(v1.x, v1.y);
     ctx.bezierCurveTo(v3.x, v3.y, v4.x, v4.y, v2.x, v2.y);
     ctx.stroke();
- 
+
   },
   render: function (pp) {
     if (this.r <= this.bloom.r) {
@@ -117,11 +118,19 @@ function Garden(ctx, width, height) {
 }
 Garden.prototype = {
   render: function () {
-    for (var i = 0; i < this.blooms.length; i++) {
-      this.blooms[i].draw();
-      
+    if (this.blooms.length>0) {
+      for (var i = 0; i < this.blooms.length; i++) {
+        this.blooms[i].draw();
+      }
+      console.log(this.blooms.length);
+      this.ctx.draw(true);
+      return false;
+    }else {
+      return true;
     }
-    this.ctx.draw(true);
+   
+
+    
   },
   addBloom: function (b) {
     this.blooms.push(b);
@@ -205,6 +214,64 @@ Garden.randomrgba = function (rmin, rmax, gmin, gmax, bmin, bmax, a) {
     return Garden.rgba(r, g, b, a);
   }
 };
+
+
+Garden.startHeartAnimation = function (garden) {
+  var interval = 50;
+  var angle = 10;
+  var heart = new Array();
+
+  var xRatio = Garden.xRatio(garden.width - 20);
+  var yRatio = Garden.yRatio(garden.height);
+
+  var animationTimer = setInterval(function () {
+
+    var bloom = Garden.getHeartPoint(garden.width / 2, garden.height, angle, xRatio, yRatio);
+
+    var draw = true;
+    for (var i = 0; i < heart.length; i++) {
+      var p = heart[i];
+      var distance = Math.sqrt(Math.pow(p[0] - bloom[0], 2) + Math.pow(p[1] - bloom[1], 2));
+      if (distance < Garden.options.bloomRadius.max * 1.3) {
+        draw = false;
+        break;
+      }
+    }
+    if (draw) {
+      heart.push(bloom);
+      garden.createRandomBloom(bloom[0], bloom[1]);
+    }
+    if (angle >= 30) {
+      clearInterval(animationTimer);
+    } else {
+      angle += 0.2;
+    }
+  }, interval);
+}
+
+
+
+Garden.getHeartPoint = function (offsetX, offsetY, angle, xx, yy) {
+  var t = angle / Math.PI;
+  //var x = 9 * (16 * Math.pow(Math.sin(t), 3));
+  //var y = -10 * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+  //return new Array(180 + x, 150 + y);
+  var x = xx * (16 * Math.pow(Math.sin(t), 3));
+  var y = yy * (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+  return new Array(offsetX + x, offsetY + y);
+}
+
+
+Garden.xRatio = function (gardenWidth) {
+  var t = 24.8 / Math.PI;
+  return gardenWidth / (2 * 16 * Math.pow(Math.sin(t), 3));
+}
+
+Garden.yRatio = function (gardenHeight) {
+  var t = 10.8 / Math.PI;
+  return gardenHeight / (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+}
+
 
 
 module.exports = Garden;

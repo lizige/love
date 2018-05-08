@@ -13,7 +13,8 @@ Page({
     hours:'',
     minutes:'',
     seconds:'',
-    animationData:''
+    animationData:'',
+    words_top:'220px'
   },
   onShow: function () {
     let that = this;
@@ -26,14 +27,21 @@ Page({
             let widowWith = sysInfo.windowWidth;
             let garden = new Garden(gardenCavas, widowWith, 150);
   
-            setInterval(function () {
-              garden.render();
-            }, Garden.options.growSpeed);
+            setTimeout(function(){
+              var gardenRender = setInterval(function () {
+                let renderFinished = garden.render();
+                if (renderFinished) {
+                  clearInterval(gardenRender);
+                  wx.redirectTo({
+                    url: '/pages/letter/letter',
+                  })
+                }
 
-            setTimeout(function () {
-              that.startHeartAnimation(garden);
-            }, 1000);
+              }, Garden.options.growSpeed);
+            },1000);
 
+            Garden.startHeartAnimation(garden);
+          
             var animation = wx.createAnimation({
               duration: 3000
             });
@@ -42,7 +50,8 @@ Page({
 
             that.setData({ animationData: animation.export() });
 
-
+     
+         
         
     });
 
@@ -65,38 +74,6 @@ Page({
     return promise.then(() => utils.createShowCode(that, "code", code));
   
    
-  },
-  startHeartAnimation: function (garden) {
-    var interval = 50;
-    var angle = 10;
-    var heart = new Array();
-   
-    var xRatio = utils.xRatio(garden.width-20);
-    var yRatio = utils.yRatio(garden.height);
-
-    var animationTimer = setInterval(function () {
-
-      var bloom = utils.getHeartPoint(garden.width / 2, 150, angle, xRatio, yRatio);
-     
-      var draw = true;
-      for (var i = 0; i < heart.length; i++) {
-        var p = heart[i];
-        var distance = Math.sqrt(Math.pow(p[0] - bloom[0], 2) + Math.pow(p[1] - bloom[1], 2));
-        if (distance < Garden.options.bloomRadius.max * 1.3) {
-          draw = false;
-          break;
-        }
-      }
-      if (draw) {
-        heart.push(bloom);
-        garden.createRandomBloom(bloom[0], bloom[1]);
-      }
-      if (angle >= 30) {
-        clearInterval(animationTimer);
-      } else {
-        angle += 0.2;
-      }
-    }, interval);
   }
 
 
