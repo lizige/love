@@ -1,0 +1,38 @@
+.container {
+    position: relative;
+    width: 100%;
+
+}
+
+.letter_backgroud {
+    width: 100%;
+}
+
+.letter {
+    position: absolute;
+    top: 220px;
+    width: 100%;
+}
+
+text {
+    letter-spacing: 2px;
+    width: 100%;
+    font-family: KaiTi;
+    font-size: 14px;
+}
+
+.ta {
+    text-align: left;
+    width: 100%;
+}
+
+.wo {
+    text-align: right;
+    width: 100%;
+}
+
+.hua {
+    text-align: left;
+    width: 100%;
+    text-indent: 2em;
+}
