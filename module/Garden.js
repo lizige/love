@@ -30,7 +30,7 @@ export class Garden {
     var me = this;
     return new Promise(function (resolve,reject){
        me.blooms[idx].draw();
-       me.ctx.draw(true);
+      //  me.ctx.draw(true);
        setTimeout(resolve,100);
     });
   }
@@ -67,7 +67,7 @@ export class Garden {
     return width/ (2 * 16 * Math.pow(Math.sin(t), 3));
   }
 
-  yRatio = function () {
+  yRatio() {
     var t = 10.8 / Math.PI;
     return this.height / (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
   }

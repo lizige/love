@@ -7,13 +7,13 @@ export class Config {
   }
 
   static  petalStretch = {
-      min: 4,
-      max: 8
+      min: 0.1,
+      max: 3
   }
 
   static growFactor = {
-      min: 1,
-      max: 2
+      min: 0.1,
+      max: 1
   }
   static bloomRadius ={
       min: 8,

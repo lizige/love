@@ -30,12 +30,11 @@ export class Petal{
 
   }
   render() {
-    if (this.r <= this.bloom.r) {
+    while (this.r <= this.bloom.r) {
       this.r += this.growFactor; // / 10;
       this.draw();
-    } else {
-      this.isfinished = true;
     }
+    
   }
 
 

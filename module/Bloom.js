@@ -23,7 +23,7 @@ export class Bloom {
       let p = this.petals[i];
       p.render();
     }
-    
+    this.garden.ctx.draw(true);
     this.garden.ctx.restore();
   }
   init() {
