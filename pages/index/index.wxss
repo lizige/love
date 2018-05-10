@@ -40,7 +40,7 @@
     font-size: 12px;
     text-align: right;
     flex-direction: row;
-    margin-right: 125 rpx;
+    margin-right: 70px;
 }
 
 #elapseClock .digit {
@@ -55,7 +55,7 @@
 
 .signature {
     text-align: right;
-    margin-right: 125 rpx;
+    margin-right: 65px;
     font-size: 12px;
     font-style: italic;
 }

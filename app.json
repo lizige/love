@@ -1,7 +1,8 @@
 {
   "pages":[
-    "pages/letter/letter",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/letter/letter"
+    
   ],
   "window":{
     "backgroundTextStyle":"light",
