@@ -1,5 +1,5 @@
 <view class='container'>
-   <image class='letter_backgroud' src='/images/letter_backgroud.jpg' style='height:{{winH}}'></image>
+   <image class='letter_backgroud' src='http://wx1.sinaimg.cn/mw690/adf1fab3gy1fr72rv99igj20ku0dw0uj.jpg' style='height:{{winH}}'></image>
    <view class="letter">
        <view class='ta'><text >贺小姐</text></view>
        <view class='hua'>
