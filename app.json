@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/photo/photo",
     "pages/index/index",
     "pages/letter/letter"
     

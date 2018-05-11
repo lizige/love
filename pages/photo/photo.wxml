@@ -1,0 +1,10 @@
+<view class="container">
+   <swiper class="my_photos" autoplay="true" indicator-dots="true"  circular="true">
+     <block wx:for="{{imgs}}">
+       <swiper-item>
+          <image mode='scaleToFill' src='{{item}}'></image>
+       </swiper-item>
+    </block>
+   </swiper>
+  
+</view>

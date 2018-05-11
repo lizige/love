@@ -1,0 +1,11 @@
+/* pages/photo/photo.wxss */
+
+.my_photos {
+  width:100%;
+  height:800px;
+}
+
+image {
+   width:100%;
+
+}
