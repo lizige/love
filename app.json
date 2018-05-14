@@ -1,8 +1,9 @@
 {
   "pages":[
-    "pages/photo/photo",
+    
     "pages/index/index",
-    "pages/letter/letter"
+    "pages/letter/letter",
+    "pages/photo/photo"
     
   ],
   "window":{
@@ -12,9 +13,9 @@
     "navigationBarTextStyle":"black"
   },
   "tabBar":{
-     "color":"#000000",
-     "selectedColor":"#9999FF",
-     "backgroundColor":"white",
+     "color":"#CCCCCC",
+     "selectedColor":"#CC0066",
+     "backgroundColor":"#333366",
      "list":[
        {
         "pagePath": "pages/index/index",
@@ -25,8 +26,8 @@
       {
         "pagePath": "pages/letter/letter",
         "text": "一封信",
-        "iconPath":"images/letter.jpg",
-        "selectedIconPath":"images/letter_selected.jpg"
+        "iconPath":"images/letter.png",
+        "selectedIconPath":"images/letter_selected.png"
       }
      ]
   },

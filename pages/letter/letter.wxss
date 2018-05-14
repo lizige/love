@@ -10,7 +10,7 @@
 
 .letter {
     position: absolute;
-    top: 220px;
+    top: 180px;
     width: 100%;
 }
 
@@ -23,16 +23,19 @@ text {
 
 .ta {
     text-align: left;
-    width: 100%;
+    padding:0px 10px;
+    width: 730rpx;
 }
 
 .wo {
     text-align: right;
-    width: 100%;
+    padding-right: 10px;
+    width: 730rpx;
 }
 
 .hua {
     text-align: left;
-    width: 100%;
+    width: 730rpx;
     text-indent: 2em;
+    padding:0px 10px;
 }

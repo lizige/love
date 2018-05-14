@@ -8,7 +8,12 @@ let isShow = false;
 
 let gardenCavas;
 let garden;
+
 const app = getApp()
+
+let timeInter;
+let open_letter = false;
+
 
 Page({
     data: {
@@ -40,6 +45,8 @@ Page({
                 let renderFinished = garden.render(200);
 
                 renderFinished.then(function () {
+                   isShow = true;
+                   if(open_letter) return;
                     wx.showModal({
                         title: '你有一封来信',
                         content: "确认打开么？",
@@ -67,11 +74,9 @@ Page({
             });
 
 
-            setInterval(() => {
+            timeInter = setInterval(() => {
                 that.setData(utils.timeElapse(2016, 7, 21))
             }, 500);
-
-            isShow = true;
         }
 
 
@@ -86,6 +91,9 @@ Page({
             " i.love(u);";
         let promise = utils.createShowCode(that, "code_comments", code_comments);
         return promise.then(() => utils.createShowCode(that, "code", code));
+    },
+    onHide:function() {
+      open_letter = true;
     }
 
 
