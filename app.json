@@ -1,9 +1,8 @@
 {
   "pages":[
-    
+    "pages/photo/photo",
     "pages/index/index",
-    "pages/letter/letter",
-    "pages/photo/photo"
+    "pages/letter/letter"
     
   ],
   "window":{

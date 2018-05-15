@@ -1,11 +1,22 @@
 /* pages/photo/photo.wxss */
 
-.my_photos {
-  width:100%;
-  height:800px;
-}
 
 image {
-   width:100%;
+   width:350px;
+}
+.remark {
+   width: 330px;
+}
 
+.dd {
+   display: flex;
+   flex-direction: row;
+   width: 100%;
+   margin: 10px;
+}
+
+text {
+   white-space: 0.5px;
+   line-height: 12px;
+   font-size: 12px;
 }
