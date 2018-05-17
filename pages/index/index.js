@@ -14,6 +14,11 @@ const app = getApp()
 let timeInter;
 let open_letter = false;
 
+const Dialog = require('../../zanui/dialog/dialog');
+
+
+
+
 
 Page({
     data: {
@@ -24,7 +29,14 @@ Page({
         minutes: '',
         seconds: '',
         animationData: '',
-        words_top: '220px'
+        words_top: '220px',
+         backGroudMusic:'http://p8v4wfp4g.bkt.clouddn.com/Everything%20I%20Do%20I%20Do%20It%20For%20You.mp3',
+        
+    $zanui: {
+      toptips: {
+        show: false
+      }
+    }
     },
     onLoad: function () {
         let sysInfo = wx.getSystemInfoSync();
@@ -32,9 +44,15 @@ Page({
         gardenCavas = wx.createCanvasContext("garden", this);
         garden = new Garden(gardenCavas, widowWith, 150);
 
+      
 
     },
     onShow: function () {
+      const innerAudioContext = wx.createInnerAudioContext();             
+      innerAudioContext.src = this.data.backGroudMusic;
+      innerAudioContext.autoplay = true
+
+
         let that = this;
         gardenCavas = wx.createCanvasContext("garden", this);
         if (!isShow) {
@@ -47,21 +65,28 @@ Page({
                 renderFinished.then(function () {
                    isShow = true;
                    if(open_letter) return;
-                    wx.showModal({
-                        title: '你有一封来信',
-                        content: "确认打开么？",
-                        showCancel: true,
-                        cancelText: "收起来",
-                        confirmText: "打开",
-                        success: (res) => {
-                            if (res.confirm) {
-                                wx.switchTab({
-                                    url: '/pages/letter/letter',
-                                });
-                            }
+                 
+                   Dialog({
+                     message: '您有一封来信，请查收！',
+                     selector: '#zan-dialog'
+                   }).then(() => {
+                     wx.switchTab({ url: '/pages/letter/letter' });
+                   });
+                    // wx.showModal({
+                    //     title: '你有一封来信',
+                    //     content: "确认打开么？",
+                    //     showCancel: true,
+                    //     cancelText: "收起来",
+                    //     confirmText: "打开",
+                    //     success: (res) => {
+                    //         if (res.confirm) {
+                    //             wx.switchTab({
+                    //                 url: '/pages/letter/letter',
+                    //             });
+                    //         }
 
-                        }
-                    })
+                    //     }
+                    // })
 
                 });
 

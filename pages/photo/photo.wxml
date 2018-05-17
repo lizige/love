@@ -1,8 +1,4 @@
 <view class="container">
-    <view class='dd'>
-        <view class='remark'><text>领证照摄于2016年07月21日</text></view>
-        <image src='http://wx3.sinaimg.cn/small/adf1fab3gy1frcdot0oeej209q0dwdkt.jpg'></image>
-    </view>
      <view class='dd'>
         <view class='remark'>
            <text>

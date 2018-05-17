@@ -18,7 +18,7 @@
      "list":[
        {
         "pagePath": "pages/index/index",
-        "text": "爱心",
+        "text": "纪念日",
         "iconPath": "images/heart.jpg",
         "selectedIconPath": "images/heart_selected.jpg"
       },
@@ -27,6 +27,10 @@
         "text": "一封信",
         "iconPath":"images/letter.png",
         "selectedIconPath":"images/letter_selected.png"
+      },
+      {
+        "pagePath": "pages/photo/photo",
+        "text": "礼物"
       }
      ]
   },

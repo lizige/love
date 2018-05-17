@@ -19,4 +19,5 @@ text {
    white-space: 0.5px;
    line-height: 12px;
    font-size: 12px;
+   font-family: KaiTi;
 }
