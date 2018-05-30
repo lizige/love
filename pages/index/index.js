@@ -14,6 +14,7 @@ const app = getApp()
 
 let timeInter;
 let open_letter = false;
+let innerAudioContext ;
 
 
 Page({
@@ -36,17 +37,18 @@ Page({
         gardenCavas = wx.createCanvasContext("garden", this);
         garden = new Garden(gardenCavas, widowWith, 150);
 
-      
+        innerAudioContext = wx.createInnerAudioContext();
+        innerAudioContext.src = this.data.backGroudMusic;
+       
 
     },
     onShow: function () {
-      const innerAudioContext = wx.createInnerAudioContext();             
-      innerAudioContext.src = this.data.backGroudMusic;
-      innerAudioContext.autoplay = true
 
-
+      if (innerAudioContext.paused)
+          innerAudioContext.play();
+     
         let that = this;
-        gardenCavas = wx.createCanvasContext("garden", this);
+      
         if (!isShow) {
 
             let promise = this.showCode();
@@ -72,6 +74,7 @@ Page({
             timeInter = setInterval(() => {
                 that.setData(utils.timeElapse(2016, 7, 21))
             }, 500);
+
         }
 
 
@@ -88,6 +91,7 @@ Page({
         return promise.then(() => utils.createShowCode(that, "code", code));
     },
     showLetter:function() {
+      let that = this;
       Dialog({
         title: '您有一封来信！',
         selector: '#zan-dialog-test',
@@ -114,6 +118,7 @@ Page({
     onHide:function() {
       open_letter = true;
     }
+
 
 
 })

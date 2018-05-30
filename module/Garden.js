@@ -59,11 +59,9 @@ export class Garden {
         new Bloom(new Vector(x, y), r, c, pc, this);
     }
 
-    clear() {
-        this.blooms = [];
-        this.ctx.clearRect(0, 0, this.width, this.height);
-    }
+   
 
+  
     xRatio() {
         let width = this.width - 20;
         var t = 24.8 / Math.PI;
