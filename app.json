@@ -1,8 +1,8 @@
 {
   "pages":[
-    "pages/photo/photo",
     "pages/index/index",
-    "pages/letter/letter"
+    "pages/photo/photo"
+  
     
   ],
   "window":{
@@ -23,14 +23,10 @@
         "selectedIconPath": "images/heart_selected.jpg"
       },
       {
-        "pagePath": "pages/letter/letter",
-        "text": "一封信",
-        "iconPath":"images/letter.png",
-        "selectedIconPath":"images/letter_selected.png"
-      },
-      {
         "pagePath": "pages/photo/photo",
-        "text": "礼物"
+        "text": "礼物",
+        "iconPath": "images/liwu.png",
+        "selectedIconPath": "images/liwu_selected.png"
       }
      ]
   },

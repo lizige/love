@@ -16,4 +16,5 @@
       </view>
   </view>
 </view>
-<zan-dialog id="zan-dialog" />
+
+<zan-dialog id="zan-dialog-test"></zan-dialog>

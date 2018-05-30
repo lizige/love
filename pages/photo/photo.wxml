@@ -1,14 +1,5 @@
 <view class="container">
-     <view class='dd'>
-        <view class='remark'>
-           <text>
-                品牌: 周生生\n主钻分数（最低）: 1克拉\n货号: 84383R\n镶嵌材质: 白18K金\n认证标识: CAL、CMA和CNAS/CNAL
-           </text>
-        </view>
-        <image src='http://wx3.sinaimg.cn/small/adf1fab3gy1frcdovk4ktj209q08c40l.jpg'></image>
-    </view>
-     <view class='dd'>
-        <view class='remark'><text>感觉如何？</text></view>
-        <image src='http://wx1.sinaimg.cn/small/adf1fab3gy1frcdophh47j209q0dwjwd.jpg'></image>
-    </view>
+        <image  wx:if="{{!flag}}" mode="widthFix"  src='http://p8v4f40ym.bkt.clouddn.com/jhz.jpg'></image>
+        <image wx:if="{{flag}}"  mode="widthFix" src="http://p8v4f40ym.bkt.clouddn.com/dhjps.jpg"></image>
 </view>
+<zan-dialog id="zan-dialog-test"></zan-dialog>

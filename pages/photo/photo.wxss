@@ -2,22 +2,6 @@
 
 
 image {
-   width:350px;
-}
-.remark {
-   width: 330px;
-}
-
-.dd {
-   display: flex;
-   flex-direction: row;
-   width: 100%;
-   margin: 10px;
-}
-
-text {
-   white-space: 0.5px;
-   line-height: 12px;
-   font-size: 12px;
-   font-family: KaiTi;
+  margin: 10px auto;
+  width:100%;
 }

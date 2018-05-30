@@ -11,6 +11,7 @@
       class="zan-dialog__content {{ title ? 'zan-dialog__content--title' : '' }}"
     >
       <text>{{ message }}</text>
+      <image src="{{imgSrc}}" style='width:100%;'></image>
     </view>
     <view
       class="zan-dialog__footer {{ buttonsShowVertical ? 'zan-dialog__footer--vertical' : 'zan-dialog__footer--horizon' }}"

@@ -6,6 +6,7 @@ module.exports = {
   buttons: [],
   // 内容
   message: ' ',
+  imgSrc:'',
   // 选择节点
   selector: '#zan-dialog',
   // 按钮是否展示为纵向

@@ -1,16 +1,12 @@
+const Dialog = require('../../zanui/dialog/dialog.js');
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
-      imgs:[
-        'http://wx2.sinaimg.cn/mw690/adf1fab3gy1fr73l8o5ygj205k07fdfw.jpg',
-        "http://wx2.sinaimg.cn/mw690/adf1fab3gy1fr73lmvkkrj20u0140ag9.jpg",
-        "http://wx2.sinaimg.cn/mw690/adf1fab3gy1fr73li4fgrj20u01hcadc.jpg",
-        "http://wx3.sinaimg.cn/mw690/adf1fab3gy1fr73lefph0j20p90zitb7.jpg"
-      ]
+      flag:false
   },
 
   /**
@@ -30,7 +26,29 @@ Page({
    */
   onShow: function () {
     
-
+     if(this.data.flag) return;
+         Dialog({
+           title: '老婆大人，请笑纳！',
+           selector: '#zan-dialog-test',
+           imgSrc:'http://p8v4f40ym.bkt.clouddn.com/%E9%92%BB%E6%88%92%E5%A4%A7ps.jpg',
+           buttons: [{
+             // 按钮文案
+             text: '思考下',
+             // 按钮文字颜色
+             color: 'red',
+             type: 'cancel'
+           }, {
+             text: '笑纳',
+             color: '#3CC51F',
+             type: 'ok'
+           }]
+         }).then(({type}) => {
+           if (type=="ok") {
+            
+             this.setData({flag:true})
+           }
+              
+         })
   },
 
   /**

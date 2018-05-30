@@ -3,6 +3,7 @@
 // var Garden = require("../../utils/garden_dev.js");
 var utils = require("../../utils/util.js");
 import {Garden} from "../../module/Garden.js"
+const Dialog = require('../../zanui/dialog/dialog.js');
 
 let isShow = false;
 
@@ -13,11 +14,6 @@ const app = getApp()
 
 let timeInter;
 let open_letter = false;
-
-const Dialog = require('../../zanui/dialog/dialog');
-
-
-
 
 
 Page({
@@ -32,11 +28,7 @@ Page({
         words_top: '220px',
          backGroudMusic:'http://p8v4wfp4g.bkt.clouddn.com/Everything%20I%20Do%20I%20Do%20It%20For%20You.mp3',
         
-    $zanui: {
-      toptips: {
-        show: false
-      }
-    }
+    
     },
     onLoad: function () {
         let sysInfo = wx.getSystemInfoSync();
@@ -64,29 +56,7 @@ Page({
 
                 renderFinished.then(function () {
                    isShow = true;
-                   if(open_letter) return;
-                 
-                   Dialog({
-                     message: '您有一封来信，请查收！',
-                     selector: '#zan-dialog'
-                   }).then(() => {
-                     wx.switchTab({ url: '/pages/letter/letter' });
-                   });
-                    // wx.showModal({
-                    //     title: '你有一封来信',
-                    //     content: "确认打开么？",
-                    //     showCancel: true,
-                    //     cancelText: "收起来",
-                    //     confirmText: "打开",
-                    //     success: (res) => {
-                    //         if (res.confirm) {
-                    //             wx.switchTab({
-                    //                 url: '/pages/letter/letter',
-                    //             });
-                    //         }
-
-                    //     }
-                    // })
+                   setTimeout(that.showLetter,2000)
 
                 });
 
@@ -116,6 +86,30 @@ Page({
             " i.love(u);";
         let promise = utils.createShowCode(that, "code_comments", code_comments);
         return promise.then(() => utils.createShowCode(that, "code", code));
+    },
+    showLetter:function() {
+      Dialog({
+        title: '您有一封来信！',
+        selector: '#zan-dialog-test',
+        imgSrc: 'http://p8v4f40ym.bkt.clouddn.com/laixin-ting.jpg',
+        buttons: [{
+          text: '翻看',
+          color: '#3CC51F',
+          type: 'ok'
+        }]
+      }).then(({ type }) => {
+        if (type == "ok") {
+          Dialog({
+            selector: '#zan-dialog-test',
+            imgSrc: 'http://p8v4f40ym.bkt.clouddn.com/xin.jpg',
+            buttons: [{
+              text: '收下',
+              type: 'ok'
+            }]
+          })
+        }
+
+      })
     },
     onHide:function() {
       open_letter = true;
