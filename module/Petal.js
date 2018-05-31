@@ -13,6 +13,7 @@ export class Petal {
         this.growFactor = growFactor;
         this.r = 1;
         this.isfinished = false;
+  
     }
 
     draw() {
@@ -35,6 +36,8 @@ export class Petal {
             this.r += this.growFactor; // / 10;
             this.draw();
         }
+        if (this.r > this.bloom.r)
+           this.r=1;
 
     }
 

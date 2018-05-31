@@ -10,28 +10,28 @@ export class Garden {
         this.width = width;
         this.height = height;
         this.ctx = ctx;
-
+        this.page = null;
         this.init();
+        this.timeoutArr=[];
     }
 
     render(interval) {
-        let pm = this.drawBloomInterval(0);
+      let pm = this.drawBloomInterval(0, interval);
         var me = this;
         for (let i = 1; i < this.blooms.length; i++) {
             pm = pm.then(function () {
-                return me.drawBloomInterval(i)
+              return me.drawBloomInterval(i, interval)
             });
         }
 
         return pm;
     }
 
-    drawBloomInterval(idx) {
+    drawBloomInterval(idx, interval) {
         var me = this;
         return new Promise(function (resolve, reject) {
             me.blooms[idx].draw();
-            //  me.ctx.draw(true);
-            setTimeout(resolve, 100);
+            me.timeoutArr.push(setTimeout(resolve, interval));
         });
     }
 
@@ -59,7 +59,28 @@ export class Garden {
         new Bloom(new Vector(x, y), r, c, pc, this);
     }
 
-   
+    clear(){
+
+      this.ctx.clearRect(0, 0, this.width, this.height);
+      this.ctx.draw()
+      for(let i =0;i<this.timeoutArr.length;i++)
+          clearTimeout(this.timeoutArr[i]);
+
+     
+    }
+
+    reDraw(){
+      //  this.ctx.rect(10,20,100,100);
+      //  this.ctx.stroke();
+      //  this.ctx.draw()
+      for (let i = 0; i < this.blooms.length;i++) {
+          this.blooms[i].draw();
+      }
+    }
+
+    setPage(page) {
+      this.page = page;
+    }
 
   
     xRatio() {

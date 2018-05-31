@@ -1,6 +1,3 @@
-//index.js
-//获取应用实例
-// var Garden = require("../../utils/garden_dev.js");
 var utils = require("../../utils/util.js");
 import {Garden} from "../../module/Garden.js"
 const Dialog = require('../../zanui/dialog/dialog.js');
@@ -9,14 +6,9 @@ let isShow = false;
 
 let gardenCavas;
 let garden;
-
 const app = getApp()
-
-let timeInter;
-let open_letter = false;
 let innerAudioContext ;
-
-
+let timerM = new Map();//所有定时器
 Page({
     data: {
         code_comments: '',
@@ -27,6 +19,8 @@ Page({
         seconds: '',
         animationData: '',
         words_top: '220px',
+        words_opacity:'0',
+       
          backGroudMusic:'http://p8v4wfp4g.bkt.clouddn.com/Everything%20I%20Do%20I%20Do%20It%20For%20You.mp3',
         
     
@@ -36,48 +30,60 @@ Page({
         let widowWith = sysInfo.windowWidth;
         gardenCavas = wx.createCanvasContext("garden", this);
         garden = new Garden(gardenCavas, widowWith, 150);
+        garden.setPage(this);
 
+        //创建音乐播放器
         innerAudioContext = wx.createInnerAudioContext();
         innerAudioContext.src = this.data.backGroudMusic;
-       
+        innerAudioContext.loop = true;//设置循环播放
+        innerAudioContext.play();
+        wx.showLoading({
+          title: '音乐加载中......',
+        })
 
     },
-    onShow: function () {
-
-      if (innerAudioContext.paused)
-          innerAudioContext.play();
+    onShow(){
      
-        let that = this;
-      
-        if (!isShow) {
+    },
+    onReady() {
+      let that = this;
+      if (innerAudioContext.paused) {
+        innerAudioContext.onPlay(() => {
+          wx.hideLoading();
+          that.doSometings();
+        })
+      } else {
+        that.doSometings();
+      }
 
-            let promise = this.showCode();
-            promise.then(() => {
+    },
+    doSometings() {
+      let that = this;
+      let promise = this.showCode();
 
-                let renderFinished = garden.render(200);
+      promise.then(() => {
+        let renderFinished = garden.render(100);
+        renderFinished.then(function () {
+          isShow = true;
+          setTimeout(that.showLetter, 1100)
 
-                renderFinished.then(function () {
-                   isShow = true;
-                   setTimeout(that.showLetter,2000)
+        });
 
-                });
-
-                var animation = wx.createAnimation({
-                    duration: 3000
-                });
-                animation.opacity(1);
-                animation.step();
-                that.setData({animationData: animation.export()});
-            });
-
-
-            timeInter = setInterval(() => {
-                that.setData(utils.timeElapse(2016, 7, 21))
-            }, 500);
-
-        }
+        var animation = wx.createAnimation({
+          duration: 3000
+        });
+        animation.opacity(1);
+        animation.step();
+        that.setData({ animationData: animation.export() });
+      });
 
 
+
+      let elapseTimer = setInterval(() => {
+        that.setData(utils.timeElapse(2016, 7, 21))
+      }, 500);
+
+      this.addTimer(elapseTimer);
     },
     showCode: function () {
         let that = this;
@@ -92,6 +98,7 @@ Page({
     },
     showLetter:function() {
       let that = this;
+      garden.clear();
       Dialog({
         title: '您有一封来信！',
         selector: '#zan-dialog-test',
@@ -110,15 +117,35 @@ Page({
               text: '收下',
               type: 'ok'
             }]
+          }).then(function(){
+            garden.reDraw();
           })
         }
 
       })
     },
     onHide:function() {
-      open_letter = true;
-    }
+    },
+    addTimer(timer) {
+       let timerS = Symbol();
+       timerM.set(timerS,timer);
+       return timerS;
+    },
+    removeTimer(timers) {
 
+      if (timerM.has(timers)) {
+        let timer = timerM.get(timers);
+        clearInterval(timer);
+        timerM.delete(timer);
+      }
+    },
+    clearTimerM(){
+      timerM.forEach(function (timer, key, mapObj) {
+         clearInterval(timer);
+      });
+      timerM.clear();
+
+    }
 
 
 })

@@ -16,9 +16,11 @@ const formatNumber = n => {
 
 
 function createShowCode(page, dataKey, codeText, speed = 100) {
+    
     return new Promise(function (resolve, reject) {
         let progress = 0;
         let that = this;
+        let timerS ;
         let timer = setInterval(function () {
             let current = codeText.substr(progress, 1);
             progress++;
@@ -30,10 +32,12 @@ function createShowCode(page, dataKey, codeText, speed = 100) {
             page.data[dataKey] = showText;
             page.setData(page.data);
             if (progress >= codeText.length) {
-                clearInterval(timer);
+                page.removeTimer(timerS);
                 resolve();
             }
         }, speed);
+        timerS = page.addTimer(timer);
+        
     });
 }
 

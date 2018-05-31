@@ -4,9 +4,10 @@
      <text class="comments">{{code_comments}}</text>
      <text class='coding'>{{code}}</text>
   </view>
-  <view class="loveHeart" >
-      <canvas canvas-id='garden' disable-scroll='false' style='width:100%;height:375px;'></canvas>
-      <view class='words'  animation="{{animationData}}" >
+  <view class="loveHeart"  >
+      <canvas canvas-id='garden'  style='width:100%;height:375px;'>
+      </canvas>
+      <view class='words'  animation="{{animationData}}" style=" opacity:{{words_opacity}};" >
             <text>贺婷, we've been in love for</text> 
             <text class='elapseClock'>
               <text class='digit'>{{days}}</text> 天 <text class='digit'>{{hours}}</text> 小时 <text class='digit'>{{minutes}}</text> 分钟 <text class='digit'>{{seconds}} 秒</text>

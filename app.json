@@ -24,7 +24,7 @@
       },
       {
         "pagePath": "pages/photo/photo",
-        "text": "礼物",
+        "text": "领证照",
         "iconPath": "images/liwu.png",
         "selectedIconPath": "images/liwu_selected.png"
       }
